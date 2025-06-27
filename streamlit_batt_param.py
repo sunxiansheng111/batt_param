@@ -17,13 +17,13 @@ plt.rcParams["axes.unicode_minus"] = False  # 解决负号显示问题
 
 # 页面设置
 st.set_page_config(
-    page_title="电池模型识别与验证",
+    page_title="电池模型辨识与验证",
     page_icon="🔋",
     layout="wide"
 )
 
 # 标题
-st.title("电池模型识别与验证系统")
+st.title("电池模型辨识与验证系统")
 st.markdown("该应用程序允许您通过界面设置参数并执行电池模型的辨识和验证过程。")
 
 # 侧边栏 - 参数设置
@@ -275,7 +275,7 @@ if run_analysis:
             analyze_dataset(identification_dataset, battery_capacity, sampling_period, model_structure.emf_function)
 
             progress_bar.progress(50)
-            status_text.text("数据集分析完成，正在识别模型...")
+            status_text.text("数据集分析完成，正在辨识模型...")
 
             # 6. 模型识别
             try:
@@ -295,7 +295,7 @@ if run_analysis:
                 st.success(
                     f"模型识别成功！\n- 模型阶数: {model_order}\n- 非线性阶数: {nonlinearity_order}\n- 基函数: {', '.join(basis_functions)}")
                 progress_bar.progress(70)
-                status_text.text("模型识别完成，正在验证模型...")
+                status_text.text("模型辨识完成，正在验证模型...")
 
 
                 # 7. 模型验证
@@ -319,11 +319,11 @@ if run_analysis:
 
                     # 绘制实际电压与仿真电压对比曲线
                     fig, ax = plt.subplots(figsize=(12, 8))
-                    ax.plot(dataset['time_values'] / 3600, dataset['voltage_values'], 'k-', label='实测电压')
-                    ax.plot(dataset['time_values'] / 3600, voltage_simulated, color='orangered', linestyle='--', label='仿真电压')
+                    ax.plot(dataset['time_values'] / 3600, dataset['voltage_values'], 'k-', label='measure_voltage')
+                    ax.plot(dataset['time_values'] / 3600, voltage_simulated, color='orangered', linestyle='--', label='model_voltage')
                     ax.set_xlabel('时间 (h)')
                     ax.set_ylabel('电压 (V)')
-                    ax.set_title('实测电压与仿真电压对比')
+                    ax.set_title('measure_voltage and model_voltage')
                     ax.legend()
                     ax.grid(True)
                     st.pyplot(fig)
